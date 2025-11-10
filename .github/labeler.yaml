@@ -1,0 +1,15 @@
+# Modules
+":floppy_disk: endpoint-service":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/endpoint-service/**/*
+
+":floppy_disk: gateway-endpoint":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/gateway-endpoint/**/*
+
+":floppy_disk: interface-endpoint":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/interface-endpoint/**/*
