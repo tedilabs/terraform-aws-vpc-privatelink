@@ -1,6 +1,6 @@
 locals {
   metadata = {
-    package = "terraform-aws-privatelink"
+    package = "terraform-aws-vpc-privatelink"
     version = trimspace(file("${path.module}/../../VERSION"))
     module  = basename(path.module)
     name    = var.name
