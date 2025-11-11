@@ -70,7 +70,7 @@ output "default_security_group" {
 
 output "security_groups" {
   description = "A set of security group IDs which is assigned to the VPC endpoint."
-  value       = aws_vpc_endpoint.this.security_group_ids
+  value       = aws_vpc_endpoint_security_group_association.this[*].security_group_id
 }
 
 output "network_interfaces" {
@@ -90,6 +90,27 @@ output "private_dns" {
 output "dns_entries" {
   description = "The DNS entries for the VPC Endpoint."
   value       = aws_vpc_endpoint.this.dns_entry
+}
+
+output "profile_associations" {
+  description = "A list of Route53 Profile associations with the VPC Endpoint."
+  value = [
+    for assoc in aws_route53profiles_resource_association.this : {
+      id       = assoc.id
+      name     = assoc.name
+      owner_id = assoc.owner_id
+      status   = assoc.status
+      profile = {
+        id     = assoc.profile_id
+        region = assoc.region
+      }
+      resource = {
+        type       = assoc.resource_type
+        arn        = assoc.resource_arn
+        properties = assoc.resource_properties
+      }
+    }
+  ]
 }
 
 output "connection_notifications" {

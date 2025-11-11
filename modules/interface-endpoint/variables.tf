@@ -86,6 +86,20 @@ variable "private_dns" {
   }
 }
 
+variable "profile_associations" {
+  description = <<EOF
+  (Optional) A list of configurations to associate Route53 Profiles with the interface endpoint. Each block of `profile_associations` as defined below.
+    (Required) `name` - The name of the resource association with the Route53 profile.
+    (Required) `profile` - The ID of the Route53 profile to associate with.
+  EOF
+  type = list(object({
+    name    = string
+    profile = string
+  }))
+  default  = []
+  nullable = false
+}
+
 variable "default_security_group" {
   description = <<EOF
   (Optional) The configuration of the default security group for the interface endpoint. `default_security_group` block as defined below.
