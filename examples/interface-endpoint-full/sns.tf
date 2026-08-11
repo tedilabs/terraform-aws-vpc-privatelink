@@ -4,7 +4,7 @@
 
 module "topic" {
   source  = "tedilabs/messaging/aws//modules/sns-standard-topic"
-  version = "~> 0.1.0"
+  version = "~> 0.3.0"
 
   name         = "interface-aws-s3"
   display_name = "Interface Endpoint Events"
