@@ -18,7 +18,7 @@ data "aws_route_tables" "this" {
 module "endpoint" {
   source = "../../modules/gateway-endpoint"
   # source  = "tedilabs/vpc-privatelink/aws//modules/gateway-endpoint"
-  # version = "~> 0.2.0"
+  # version = "~> 0.1.0"
 
   vpc_id = data.aws_vpc.default.id
 
