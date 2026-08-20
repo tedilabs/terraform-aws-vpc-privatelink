@@ -12,13 +12,13 @@ This module creates following resources.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.12 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.20.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
 
 ## Modules
 
@@ -42,6 +42,7 @@ This module creates following resources.
 | <a name="input_name"></a> [name](#input\_name) | (Required) Desired name for the VPC Gateway Endpoint. | `string` | n/a | yes |
 | <a name="input_service"></a> [service](#input\_service) | (Required) The AWS service name. Valid values are `DYNAMODB`, `S3`, `S3EXPRESS`. | `string` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | (Required) The ID of the VPC in which the endpoint will be used. | `string` | n/a | yes |
+| <a name="input_ip_address_type"></a> [ip\_address\_type](#input\_ip\_address\_type) | (Optional) The type of IP addresses used by the gateway endpoint. The possible values are `IPv4`, `IPv6` and `DUALSTACK`. `IPv6` is supported only if all subnets of associated route tables are IPv6 only subnets. `DUALSTACK` is supported only if all subnets of associated route tables have both IPv4 and IPv6 address ranges. Defaults to `IPv4`. | `string` | `"IPv4"` | no |
 | <a name="input_module_tags_enabled"></a> [module\_tags\_enabled](#input\_module\_tags\_enabled) | (Optional) Whether to create AWS Resource Tags for the module informations. | `bool` | `true` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | (Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All Gateway endpoints support policies. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | (Optional) The region in which to create the module resources. If not provided, the module resources will be created in the provider's configured region. | `string` | `null` | no |
@@ -56,6 +57,7 @@ This module creates following resources.
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of the VPC endpoint. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the VPC endpoint. |
+| <a name="output_ip_address_type"></a> [ip\_address\_type](#output\_ip\_address\_type) | The type of IP addresses used by the VPC endpoint. |
 | <a name="output_name"></a> [name](#output\_name) | The VPC Gateway Endpoint name. |
 | <a name="output_owner_id"></a> [owner\_id](#output\_owner\_id) | The owner ID of the VPC endpoint. |
 | <a name="output_prefix_list"></a> [prefix\_list](#output\_prefix\_list) | The information of the prefix list of the VPC endpoint.<br/>    `id` - The prefix list ID of the exposed AWS service.<br/>    `ipv4_cidrs` - The list of CIDR blocks for the exposed AWS service. |

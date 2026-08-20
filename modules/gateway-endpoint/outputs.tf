@@ -43,6 +43,11 @@ output "vpc_id" {
   value       = aws_vpc_endpoint.this.vpc_id
 }
 
+output "ip_address_type" {
+  description = "The type of IP addresses used by the VPC endpoint."
+  value       = var.ip_address_type
+}
+
 output "prefix_list" {
   description = <<EOF
   The information of the prefix list of the VPC endpoint.
