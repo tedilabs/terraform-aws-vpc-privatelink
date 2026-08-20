@@ -6,5 +6,8 @@
   description: "This issue or pull request is related to gateway-endpoint module."
   name: ":floppy_disk: gateway-endpoint"
 - color: "fbca04"
+  description: "This issue or pull request is related to gateway-load-balancer-endpoint module."
+  name: ":floppy_disk: gateway-load-balancer-endpoint"
+- color: "fbca04"
   description: "This issue or pull request is related to interface-endpoint module."
   name: ":floppy_disk: interface-endpoint"

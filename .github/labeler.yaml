@@ -9,6 +9,11 @@
   - any-glob-to-any-file:
     - modules/gateway-endpoint/**/*
 
+":floppy_disk: gateway-load-balancer-endpoint":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/gateway-load-balancer-endpoint/**/*
+
 ":floppy_disk: interface-endpoint":
 - changed-files:
   - any-glob-to-any-file:

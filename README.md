@@ -8,6 +8,7 @@ Terraform module which creates VPC PrivateLink related resources on AWS.
 
 - [endpoint-service](./modules/endpoint-service)
 - [gateway-endpoint](./modules/gateway-endpoint)
+- [gateway-load-balancer-endpoint](./modules/gateway-load-balancer-endpoint)
 - [interface-endpoint](./modules/interface-endpoint)
 
 
