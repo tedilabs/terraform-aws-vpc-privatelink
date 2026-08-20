@@ -13,3 +13,8 @@
 - changed-files:
   - any-glob-to-any-file:
     - modules/interface-endpoint/**/*
+
+":floppy_disk: resource-endpoint":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/resource-endpoint/**/*
