@@ -3,7 +3,9 @@
 ###################################################
 
 resource "time_sleep" "wait" {
-  create_duration = "10s"
+  count = length(var.profile_associations) > 0 ? 1 : 0
+
+  create_duration = "30s"
 
   triggers = {
     endpoint_id  = aws_vpc_endpoint_private_dns.this.vpc_endpoint_id
@@ -21,7 +23,7 @@ resource "aws_route53profiles_resource_association" "this" {
 
   region = var.region
 
-  resource_arn = time_sleep.wait.triggers["endpoint_arn"]
+  resource_arn = time_sleep.wait[0].triggers["endpoint_arn"]
 
   name       = each.key
   profile_id = each.value.profile
