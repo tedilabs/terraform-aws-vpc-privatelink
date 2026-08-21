@@ -6,7 +6,7 @@ resource "time_sleep" "wait" {
   create_duration = "10s"
 
   triggers = {
-    endpoint_id  = aws_vpc_endpoint.this.id
+    endpoint_id  = aws_vpc_endpoint_private_dns.this.vpc_endpoint_id
     endpoint_arn = aws_vpc_endpoint.this.arn
   }
 }
