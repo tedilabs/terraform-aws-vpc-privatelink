@@ -5,7 +5,7 @@
 resource "time_sleep" "wait" {
   count = length(var.profile_associations) > 0 ? 1 : 0
 
-  create_duration = "30s"
+  create_duration = "60s"
 
   triggers = {
     endpoint_id  = aws_vpc_endpoint_private_dns.this.vpc_endpoint_id
