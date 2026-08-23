@@ -28,6 +28,18 @@ variable "vpc_id" {
   nullable    = false
 }
 
+variable "ip_address_type" {
+  description = "(Optional) The type of IP addresses used by the gateway endpoint. The possible values are `IPv4`, `IPv6` and `DUALSTACK`. `IPv6` is supported only if all subnets of associated route tables are IPv6 only subnets. `DUALSTACK` is supported only if all subnets of associated route tables have both IPv4 and IPv6 address ranges. Defaults to `IPv4`."
+  type        = string
+  default     = "IPv4"
+  nullable    = false
+
+  validation {
+    condition     = contains(["IPv4", "IPv6", "DUALSTACK"], var.ip_address_type)
+    error_message = "The possible values are `IPv4`, `IPv6` and `DUALSTACK`."
+  }
+}
+
 variable "policy" {
   description = "(Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All Gateway endpoints support policies."
   type        = string

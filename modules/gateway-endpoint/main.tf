@@ -12,6 +12,12 @@ locals {
     "module.terraform.io/full-name" = "${local.metadata.package}/${local.metadata.module}"
     "module.terraform.io/instance"  = local.metadata.name
   } : {}
+
+  ip_address_types = {
+    "IPv4"      = "ipv4"
+    "IPv6"      = "ipv6"
+    "DUALSTACK" = "dualstack"
+  }
 }
 
 data "aws_vpc_endpoint_service" "this" {
@@ -30,7 +36,6 @@ data "aws_vpc_endpoint_service" "this" {
 # INFO: Not supported attributes
 # - `auto_accept`
 # - `dns_options`
-# - `ip_address_type`
 # - `private_dns_enabled`
 # - `resource_configuration_arn`
 # - `security_group_ids`
@@ -44,7 +49,9 @@ resource "aws_vpc_endpoint" "this" {
 
   vpc_endpoint_type = "Gateway"
   service_name      = data.aws_vpc_endpoint_service.this.service_name
-  vpc_id            = var.vpc_id
+
+  vpc_id          = var.vpc_id
+  ip_address_type = local.ip_address_types[var.ip_address_type]
 
   auto_accept = true
 
