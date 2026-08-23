@@ -40,6 +40,8 @@ data "aws_vpc_endpoint_service" "this" {
 # - `resource_configuration_arn`
 # - `security_group_ids`
 # - `service_network_arn`
+# - `service_region`
+# - `subnet_configuration`
 # - `subnet_ids`
 # INFO: Use a separate resource
 # - `policy`
