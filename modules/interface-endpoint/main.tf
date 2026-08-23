@@ -76,6 +76,8 @@ locals {
 ###################################################
 
 # INFO: Not supported attributes
+# - `dns_options.private_dns_preference` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
+# - `dns_options.private_dns_specified_domains` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
 # - `resource_configuration_arn`
 # - `route_table_ids`
 # - `service_network_arn`
