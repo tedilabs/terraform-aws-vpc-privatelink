@@ -14,9 +14,10 @@ locals {
   } : {}
 
   ip_address_types = {
-    "IPv4"      = "ipv4"
-    "IPv6"      = "ipv6"
-    "DUALSTACK" = "dualstack"
+    "IPv4"            = "ipv4"
+    "IPv6"            = "ipv6"
+    "DUALSTACK"       = "dualstack"
+    "SERVICE_DEFINED" = "service-defined"
   }
 }
 
@@ -35,7 +36,9 @@ data "aws_vpc_endpoint_service" "this" {
 
 # INFO: Not supported attributes
 # - `auto_accept`
-# - `dns_options`
+# - `dns_options.private_dns_only_for_inbound_resolver_endpoint` (Only supported for `Interface` endpoint type)
+# - `dns_options.private_dns_preference` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
+# - `dns_options.private_dns_specified_domains` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
 # - `private_dns_enabled`
 # - `resource_configuration_arn`
 # - `security_group_ids`
@@ -56,6 +59,10 @@ resource "aws_vpc_endpoint" "this" {
   ip_address_type = local.ip_address_types[var.ip_address_type]
 
   auto_accept = true
+
+  dns_options {
+    dns_record_ip_type = local.ip_address_types[var.private_dns.record_ip_type]
+  }
 
   timeouts {
     create = var.timeouts.create

@@ -48,6 +48,13 @@ output "ip_address_type" {
   value       = var.ip_address_type
 }
 
+output "private_dns" {
+  description = "The configuration of the private DNS settings for the VPC Endpoint."
+  value = {
+    record_ip_type = var.private_dns.record_ip_type
+  }
+}
+
 output "prefix_list" {
   description = <<EOF
   The information of the prefix list of the VPC endpoint.

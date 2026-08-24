@@ -40,6 +40,23 @@ variable "ip_address_type" {
   }
 }
 
+variable "private_dns" {
+  description = <<EOF
+  (Optional) The configuration of the private DNS settings for the gateway endpoint. `private_dns` block as defined below.
+    (Optional) `record_ip_type` - The type of DNS records created by the AWS service for the endpoint. Valid values are `IPv4`, `IPv6`, `DUALSTACK`, `SERVICE_DEFINED`. `SERVICE_DEFINED` returns the DNS records based on the service endpoint which is called. The DNS record IP type must be compatible with `ip_address_type`. `IPv4` supports `IPv4` and `SERVICE_DEFINED`. `IPv6` supports `IPv6` and `SERVICE_DEFINED`. `DUALSTACK` supports all of the valid values. Defaults to `SERVICE_DEFINED`.
+  EOF
+  type = object({
+    record_ip_type = optional(string, "SERVICE_DEFINED")
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition     = contains(["IPv4", "IPv6", "DUALSTACK", "SERVICE_DEFINED"], var.private_dns.record_ip_type)
+    error_message = "Valid values for `record_ip_type` are `IPv4`, `IPv6`, `DUALSTACK` and `SERVICE_DEFINED`."
+  }
+}
+
 variable "policy" {
   description = "(Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All Gateway endpoints support policies."
   type        = string
