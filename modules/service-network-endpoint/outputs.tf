@@ -8,7 +8,7 @@ output "name" {
   value       = var.name
 }
 
-output "service_network_arn" {
+output "service_network" {
   description = "The Amazon Resource Name (ARN) of the VPC Lattice service network of the VPC Service Network Endpoint."
   value       = aws_vpc_endpoint.this.service_network_arn
 }

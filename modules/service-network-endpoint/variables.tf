@@ -11,7 +11,7 @@ variable "name" {
   nullable    = false
 }
 
-variable "service_network_arn" {
+variable "service_network" {
   description = "(Required) The Amazon Resource Name (ARN) of the VPC Lattice service network to connect this VPC endpoint to."
   type        = string
   nullable    = false

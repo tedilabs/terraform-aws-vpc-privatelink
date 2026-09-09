@@ -51,7 +51,7 @@ resource "aws_vpc_endpoint" "this" {
   region = var.region
 
   vpc_endpoint_type   = "ServiceNetwork"
-  service_network_arn = var.service_network_arn
+  service_network_arn = var.service_network
 
   vpc_id          = var.vpc_id
   ip_address_type = local.ip_address_types[var.ip_address_type]
@@ -105,8 +105,22 @@ resource "aws_vpc_endpoint_security_group_association" "this" {
 
 
 ###################################################
-# Connection Notifications
+# Subnet Associations for Service Network Endpoint
 ###################################################
 
-# INFO: Not supported for Service Network endpoints
-# - `aws_vpc_endpoint_connection_notification`
+# INFO: Not support IP address allocation per subnet
+# resource "aws_vpc_endpoint_subnet_association" "this" {
+#   for_each = var.network_mapping
+#
+#   region = var.region
+#
+#   vpc_endpoint_id = aws_vpc_endpoint.this.id
+#   subnet_id       = each.value.subnet
+#
+#   lifecycle {
+#     precondition {
+#       condition     = contains(local.available_az_ids, each.key)
+#       error_message = "Availability zone ${each.key} is not available."
+#     }
+#   }
+# }
