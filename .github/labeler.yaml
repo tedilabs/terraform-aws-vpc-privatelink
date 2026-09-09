@@ -13,3 +13,8 @@
 - changed-files:
   - any-glob-to-any-file:
     - modules/interface-endpoint/**/*
+
+":floppy_disk: service-network-endpoint":
+- changed-files:
+  - any-glob-to-any-file:
+    - modules/service-network-endpoint/**/*

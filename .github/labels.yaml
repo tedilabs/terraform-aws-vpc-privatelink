@@ -8,3 +8,6 @@
 - color: "fbca04"
   description: "This issue or pull request is related to interface-endpoint module."
   name: ":floppy_disk: interface-endpoint"
+- color: "fbca04"
+  description: "This issue or pull request is related to service-network-endpoint module."
+  name: ":floppy_disk: service-network-endpoint"
