@@ -1,4 +1,4 @@
-# vpc-service-network-endpoint
+# service-network-endpoint
 
 This module creates following resources.
 

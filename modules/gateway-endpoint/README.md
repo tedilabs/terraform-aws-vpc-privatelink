@@ -1,4 +1,4 @@
-# vpc-gateway-endpoint
+# gateway-endpoint
 
 This module creates following resources.
 
