@@ -165,11 +165,22 @@ resource "aws_vpc_endpoint_security_group_association" "this" {
 
 
 ###################################################
-# Connection Notifications
+# Subnet Associations for Service Network Endpoint
 ###################################################
 
-# INFO: Not supported for Resource type endpoints
-# - `aws_vpc_endpoint_connection_notification` notifies endpoint events
-#   (`Accept`, `Reject`, `Connect`, `Delete`) for endpoints connected to a VPC
-#   Endpoint Service. Resource type endpoints connect to a VPC Lattice resource
-#   configuration instead of a VPC Endpoint Service.
+# INFO: Not support IP address allocation per subnet
+# resource "aws_vpc_endpoint_subnet_association" "this" {
+#   for_each = var.network_mapping
+#
+#   region = var.region
+#
+#   vpc_endpoint_id = aws_vpc_endpoint.this.id
+#   subnet_id       = each.value.subnet
+#
+#   lifecycle {
+#     precondition {
+#       condition     = contains(local.available_az_ids, each.key)
+#       error_message = "Availability zone ${each.key} is not available."
+#     }
+#   }
+# }

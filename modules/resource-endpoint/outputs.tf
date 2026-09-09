@@ -79,7 +79,7 @@ output "private_dns" {
     enabled           = aws_vpc_endpoint.this.private_dns_enabled
     record_ip_type    = var.private_dns.record_ip_type
     preference        = try(aws_vpc_endpoint.this.dns_options[0].private_dns_preference, null)
-    specified_domains = try(aws_vpc_endpoint.this.dns_options[0].private_dns_specified_domains, null)
+    specified_domains = try(aws_vpc_endpoint.this.dns_options[0].private_dns_specified_domains, [])
   }
 }
 
