@@ -1,4 +1,4 @@
-# vpc-resource-endpoint
+# resource-endpoint
 
 This module creates following resources.
 

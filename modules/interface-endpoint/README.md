@@ -1,4 +1,4 @@
-# vpc-interface-endpoint
+# interface-endpoint
 
 This module creates following resources.
 
