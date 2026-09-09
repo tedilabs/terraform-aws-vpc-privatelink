@@ -23,20 +23,15 @@ variable "vpc_id" {
   nullable    = false
 }
 
-variable "network_mapping" {
-  description = <<EOF
-  (Optional) The configuration for the resource endpoint how routes traffic to targets in which subnets, and in accordance with IP address settings. Choose one subnet for each zone. An endpoint network interface is assigned a private IP address from the IP address range of your subnet, and keeps this IP address until the resource endpoint is deleted. Each key of `network_mapping` is the availability zone id like `apne2-az1`, `use1-az1`. Each block of `network_mapping` as defined below.
-    (Required) `subnet` - The id of the subnet of which to attach to the endpoint. You can specify only one subnet per Availability Zone.
-    (Optional) `ipv4_address` - The IPv4 address to assign to the endpoint network interface in the subnet. Defaults to be randomly configured by Amazon.
-    (Optional) `ipv6_address` - The IPv6 address to assign to the endpoint network interface in the subnet. Defaults to be randomly configured by Amazon.
-  EOF
-  type = map(object({
-    subnet       = string
-    ipv4_address = optional(string)
-    ipv6_address = optional(string)
-  }))
-  default  = {}
-  nullable = false
+variable "subnets" {
+  description = "(Required) A list of subnet IDs in which to create endpoint network interfaces for the endpoint. Choose one subnet for each Availability Zone. An endpoint network interface is assigned an IP address from the IP address range of the subnet based on the IP address type of the endpoint. At least one Availability Zone of the endpoint and the resource gateway have to overlap. In a production environment, for high availability and resiliency, it is recommended to configure subnets in at least two Availability Zones."
+  type        = list(string)
+  nullable    = false
+
+  validation {
+    condition     = length(var.subnets) > 0
+    error_message = "At least one subnet is required for the resource endpoint."
+  }
 }
 
 variable "ip_address_type" {

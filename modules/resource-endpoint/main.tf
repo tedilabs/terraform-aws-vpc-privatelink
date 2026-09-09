@@ -14,46 +14,7 @@ locals {
   } : {}
 }
 
-data "aws_availability_zones" "available" {
-  region = var.region
-
-  state = "available"
-}
-
-data "aws_subnet" "this" {
-  for_each = var.network_mapping
-
-  region = var.region
-
-  id = each.value.subnet
-
-  lifecycle {
-    precondition {
-      condition     = contains(local.available_az_ids, each.key)
-      error_message = "Availability zone ${each.key} is not available."
-    }
-    postcondition {
-      condition     = each.key == self.availability_zone_id
-      error_message = "Subnet ${each.value.subnet} is not in the expected availability zone ${each.key}."
-    }
-  }
-}
-
 locals {
-  available_az_ids = data.aws_availability_zones.available.zone_ids
-  subnet_configurations = {
-    for az in aws_vpc_endpoint.this.subnet_configuration :
-    az.subnet_id => az
-  }
-  network_mapping = {
-    for zone_id in local.available_az_ids :
-    zone_id => try({
-      subnet       = var.network_mapping[zone_id].subnet
-      ipv4_address = local.subnet_configurations[var.network_mapping[zone_id].subnet].ipv4
-      ipv6_address = local.subnet_configurations[var.network_mapping[zone_id].subnet].ipv6
-    }, null)
-  }
-
   security_groups = concat(
     (var.default_security_group.enabled
       ? module.security_group[*].id
@@ -83,6 +44,7 @@ locals {
 # - `service_name` (Conflicts with `resource_configuration_arn`)
 # - `service_network_arn` (Only supported for `ServiceNetwork` endpoint type)
 # - `service_region` (Only supported for `Interface` endpoint type)
+# - `subnet_configuration` (Not supported for `Resource` endpoint type)
 # INFO: Use a separate resource
 # - `security_group_ids`
 resource "aws_vpc_endpoint" "this" {
@@ -93,26 +55,7 @@ resource "aws_vpc_endpoint" "this" {
 
   vpc_id          = var.vpc_id
   ip_address_type = local.ip_address_types[var.ip_address_type]
-  subnet_ids = [
-    for az in var.network_mapping :
-    az.subnet
-  ]
-
-  dynamic "subnet_configuration" {
-    for_each = [
-      for az in var.network_mapping :
-      az
-      if az.ipv4_address != null || az.ipv6_address != null
-    ]
-    iterator = az
-
-    content {
-      subnet_id = az.value.subnet
-
-      ipv4 = az.value.ipv4_address
-      ipv6 = az.value.ipv6_address
-    }
-  }
+  subnet_ids      = var.subnets
 
   # INFO: `private_dns_enabled` forces a new resource when changed for
   # non-Interface endpoint types. A separate `aws_vpc_endpoint_private_dns`
@@ -165,7 +108,7 @@ resource "aws_vpc_endpoint_security_group_association" "this" {
 
 
 ###################################################
-# Subnet Associations for Service Network Endpoint
+# Subnet Associations for Resource Endpoint
 ###################################################
 
 # INFO: Not support IP address allocation per subnet

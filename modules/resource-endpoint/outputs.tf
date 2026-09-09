@@ -48,9 +48,9 @@ output "vpc_id" {
   value       = aws_vpc_endpoint.this.vpc_id
 }
 
-output "network_mapping" {
-  description = "The configuration for the endpoint how routes traffic to targets in which subnets and IP address settings."
-  value       = local.network_mapping
+output "subnets" {
+  description = "A list of subnet IDs in which endpoint network interfaces of the VPC endpoint are created."
+  value       = aws_vpc_endpoint.this.subnet_ids
 }
 
 output "ip_address_type" {
