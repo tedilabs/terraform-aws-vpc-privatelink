@@ -50,23 +50,17 @@ variable "private_dns" {
   description = <<EOF
   (Optional) The configuration of the private DNS settings for the resource endpoint. `private_dns` block as defined below.
     (Optional) `enabled` - Whether to associate private hosted zones for the custom domain names of the resource configuration with the specified VPC. To use this feature, ensure that the attributes `Enable DNS hostnames` and `Enable DNS support` are enabled for your VPC. Defaults to `false`. Changing this value forces a new resource endpoint to be created.
-    (Optional) `record_ip_type` - The type of DNS records created for the endpoint. Valid values are `IPv4`, `IPv6`, `DUALSTACK`, `SERVICE_DEFINED`. Defaults to `IPv4`.
     (Optional) `preference` - The preference for which private domains have a private hosted zone created for and associated with the specified VPC. Valid values are `ALL_DOMAINS`, `VERIFIED_DOMAINS_ONLY`, `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` and `SPECIFIED_DOMAINS_ONLY`. Defaults to `ALL_DOMAINS`.
     (Optional) `specified_domains` - A list of private domains to create private hosted zones for and associate with the specified VPC. Required if `preference` is `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` or `SPECIFIED_DOMAINS_ONLY`. In all other cases, this value must not be specified. A maximum of 10 domains can be specified.
   EOF
   type = object({
     enabled           = optional(bool, false)
-    record_ip_type    = optional(string, "IPv4")
     preference        = optional(string, "ALL_DOMAINS")
     specified_domains = optional(list(string), [])
   })
   default  = {}
   nullable = false
 
-  validation {
-    condition     = contains(["IPv4", "IPv6", "DUALSTACK", "SERVICE_DEFINED"], var.private_dns.record_ip_type)
-    error_message = "Valid values for `record_ip_type` are `IPv4`, `IPv6`, `DUALSTACK` and `SERVICE_DEFINED`."
-  }
   validation {
     condition     = contains(["ALL_DOMAINS", "VERIFIED_DOMAINS_ONLY", "VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS", "SPECIFIED_DOMAINS_ONLY"], var.private_dns.preference)
     error_message = "Valid values for `preference` are `ALL_DOMAINS`, `VERIFIED_DOMAINS_ONLY`, `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` and `SPECIFIED_DOMAINS_ONLY`."

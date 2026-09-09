@@ -24,10 +24,9 @@ locals {
   )
 
   ip_address_types = {
-    "IPv4"            = "ipv4"
-    "IPv6"            = "ipv6"
-    "DUALSTACK"       = "dualstack"
-    "SERVICE_DEFINED" = "service-defined"
+    "IPv4"      = "ipv4"
+    "IPv6"      = "ipv6"
+    "DUALSTACK" = "dualstack"
   }
 }
 
@@ -38,6 +37,7 @@ locals {
 
 # INFO: Not supported attributes
 # - `auto_accept` (Only applicable to endpoints connected to a VPC Endpoint Service)
+# - `dns_options.dns_record_ip_type` (Not applicable to `Resource` endpoint type)
 # - `dns_options.private_dns_only_for_inbound_resolver_endpoint` (Only supported for `Interface` endpoint type)
 # - `policy` (Only supported for `Gateway` and some `Interface` endpoint types)
 # - `route_table_ids` (Only supported for `Gateway` endpoint type)
@@ -66,7 +66,6 @@ resource "aws_vpc_endpoint" "this" {
     for_each = var.private_dns.enabled ? ["go"] : []
 
     content {
-      dns_record_ip_type     = local.ip_address_types[var.private_dns.record_ip_type]
       private_dns_preference = var.private_dns.preference
       private_dns_specified_domains = (length(var.private_dns.specified_domains) > 0
         ? var.private_dns.specified_domains
