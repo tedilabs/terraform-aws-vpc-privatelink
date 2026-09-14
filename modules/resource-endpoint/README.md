@@ -9,34 +9,34 @@ This module creates following resources.
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.61.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | tedilabs/misc/aws//modules/resource-group | ~> 0.12.0 |
 | <a name="module_security_group"></a> [security\_group](#module\_security\_group) | tedilabs/network/aws//modules/security-group | ~> 1.2.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_vpc_endpoint.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
 | [aws_vpc_endpoint_security_group_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_security_group_association) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | (Required) Desired name for the VPC Resource Endpoint. | `string` | n/a | yes |
 | <a name="input_resource_configuration"></a> [resource\_configuration](#input\_resource\_configuration) | (Required) The ARN (Amazon Resource Name) of the VPC Lattice Resource Configuration to connect the endpoint to. The resource configuration can be owned by your account or shared with your account through AWS RAM. | `string` | n/a | yes |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | (Required) A list of subnet IDs in which to create endpoint network interfaces for the endpoint. Choose one subnet for each Availability Zone. An endpoint network interface is assigned an IP address from the IP address range of the subnet based on the IP address type of the endpoint. At least one Availability Zone of the endpoint and the resource gateway have to overlap. In a production environment, for high availability and resiliency, it is recommended to configure subnets in at least two Availability Zones. | `list(string)` | n/a | yes |
@@ -54,7 +54,7 @@ This module creates following resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) of the VPC endpoint. |
 | <a name="output_default_security_group"></a> [default\_security\_group](#output\_default\_security\_group) | The default security group ID of the VPC endpoint. |
 | <a name="output_dns_entries"></a> [dns\_entries](#output\_dns\_entries) | The DNS entries for the VPC Endpoint. |
