@@ -54,13 +54,7 @@ locals {
     }, null)
   }
 
-  security_groups = concat(
-    (var.default_security_group.enabled
-      ? module.security_group[*].id
-      : []
-    ),
-    var.security_groups
-  )
+  security_groups = concat(module.security_group[*].id, var.security_groups)
 
   ip_address_types = {
     "IPv4"            = "ipv4"
