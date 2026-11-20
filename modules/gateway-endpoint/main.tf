@@ -21,12 +21,10 @@ locals {
   }
 }
 
-data "aws_vpc_endpoint_service" "this" {
-  # INFO: https://github.com/hashicorp/terraform-provider-aws/issues/44402
-  # region = var.region
-
-  service      = lower(var.service)
-  service_type = "Gateway"
+# INFO: `aws_vpc_endpoint_service` data source does not support the `region`
+# override and always resolves the service name in the provider's region.
+data "aws_region" "this" {
+  region = var.region
 }
 
 
@@ -53,7 +51,7 @@ resource "aws_vpc_endpoint" "this" {
   region = var.region
 
   vpc_endpoint_type = "Gateway"
-  service_name      = data.aws_vpc_endpoint_service.this.service_name
+  service_name      = "com.amazonaws.${data.aws_region.this.region}.${lower(var.service)}"
 
   vpc_id          = var.vpc_id
   ip_address_type = local.ip_address_types[var.ip_address_type]
