@@ -54,7 +54,7 @@ variable "network_mapping" {
 }
 
 variable "ip_address_type" {
-  description = "(Optional) The type of IP addresses used by the subnets for the interface endpoint. The possible values are `IPv4`, `IPv6` and `DUALSTACK`. Defaults to `IPv4`"
+  description = "(Optional) The type of IP addresses used by the subnets for the interface endpoint. The possible values are `IPv4`, `IPv6` and `DUALSTACK`. Defaults to `IPv4`."
   type        = string
   default     = "IPv4"
   nullable    = false
@@ -205,7 +205,7 @@ variable "tags" {
 }
 
 variable "module_tags_enabled" {
-  description = "(Optional) Whether to create AWS Resource Tags for the module informations."
+  description = "(Optional) Whether to create AWS Resource Tags for the module information."
   type        = bool
   default     = true
   nullable    = false

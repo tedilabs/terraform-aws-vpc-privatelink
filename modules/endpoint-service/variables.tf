@@ -34,7 +34,7 @@ variable "load_balancers" {
 }
 
 variable "private_domain" {
-  description = "(Optional) The private domain name for the service. This option allows users of endpoints to use the specified private DNS name for access the service from their VPCs."
+  description = "(Optional) The private domain name for the service. This option allows users of endpoints to use the specified private DNS name to access the service from their VPCs."
   type        = string
   default     = null
   nullable    = true
@@ -111,7 +111,7 @@ variable "tags" {
 }
 
 variable "module_tags_enabled" {
-  description = "(Optional) Whether to create AWS Resource Tags for the module informations."
+  description = "(Optional) Whether to create AWS Resource Tags for the module information."
   type        = bool
   default     = true
   nullable    = false
