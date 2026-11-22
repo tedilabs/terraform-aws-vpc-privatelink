@@ -21,7 +21,7 @@ data "aws_subnet" "default" {
 module "endpoint" {
   source = "../../modules/interface-endpoint"
   # source  = "tedilabs/vpc-privatelink/aws//modules/interface-endpoint"
-  # version = "~> 0.1.0"
+  # version = "~> 0.3.0"
 
   name         = "interface-aws-s3"
   service_name = "com.amazonaws.us-east-1.s3"

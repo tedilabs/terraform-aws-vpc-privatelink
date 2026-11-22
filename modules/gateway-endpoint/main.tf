@@ -33,7 +33,6 @@ data "aws_region" "this" {
 ###################################################
 
 # INFO: Not supported attributes
-# - `auto_accept`
 # - `dns_options.private_dns_only_for_inbound_resolver_endpoint` (Only supported for `Interface` endpoint type)
 # - `dns_options.private_dns_preference` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
 # - `dns_options.private_dns_specified_domains` (Only supported for `ServiceNetwork` or `Resource` endpoint types)
